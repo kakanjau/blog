@@ -1,0 +1,27 @@
+<div class="modal fade in" ng-controller="DialogDemoCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">dialog demo</h4>
+      </div>
+      <div class="modal-body">
+        <section>
+          这里可以加入任何内容<br>
+          打开控制台，可以看到点击确认、取消时，accept、refuse分别被执行
+        </section>
+        <pre>
+          这些数据是从modal页面中继承来的：
+          $scope.data: {{data}}
+        </pre>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button class="btn btn-default" ng-click="commit()"> 确 定</button>
+          <button class="btn btn-default" ng-click="close()"> 取 消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

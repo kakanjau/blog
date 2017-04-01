@@ -1,0 +1,37 @@
+<section class="content">
+  <markdown>
+### 日期范围选择
+
+  日期范围选择是一个attribute指令。是对[bootstrap date range picker](https://select2.github.io/examples.html)插件的一个简单封装。  
+  默认配置了中文显示，并添加了事件监听。
+  
+### 使用方法
+````
+// html
+<input type="text" date-range-picker="dataOption">
+
+// controller.js
+$scope.dataOption = {
+  'key': 'id', // 控件id
+  'autoUpdateInput': false, // 是否自动更新输入
+  'canClear': true, // 是否允许清空
+};
+// 监听事件，以便在控件触发后，获取选择的日期范围
+$scope.$on('dateRangePicker:id', function(evt, dateObj){
+  startDate = dateObj.start && dateObj.start.format('YYYY-MM-DD HH:mm:ss');
+  endDate = dateObj.end && dateObj.end.format('YYYY-MM-DD HH:mm:ss');
+});
+````    
+
+>  更多的配置内容请参考[bootstrap date range picker官网](https://select2.github.io/examples.html)
+
+### 示例
+  </markdown>
+  
+  <span>可清空</span>
+  <input type="text" class="form-control" style="width:200px;" date-range-picker="dateOption1">
+  <span>可限制范围</span>
+  <input type="text" class="form-control" style="width:200px;" date-range-picker="dateOption2">
+  <span>提供备选列表</span>
+  <input type="text" class="form-control" style="width:200px;" date-range-picker="dateOption3">
+</section>

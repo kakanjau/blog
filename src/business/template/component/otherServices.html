@@ -1,0 +1,46 @@
+<section class="content">
+  <markdown>
+#### LazyLoader
+`LazyLoader`用于延迟加载**js**文件。
+
+##### 使用方法
+- LazyLoader.load(url) 延迟加载1个JavaScript资源，返回promise
+- LazyLoader.loadArr(Array<String>) 延迟加载多个JavaScript资源，资源没有前后顺序，返回promise
+- LazyLoader.loadQueue(Array<String>) 按顺序延迟加载多个JavaScript资源，返回promise
+
+-----------------------
+#### httpService
+`httpService`是对ng的$http服务的封装。  
+主要对$http服务提供了3方面的增强：
+1. 所有ajax请求的前置处理：对当前用户是否已登录的验证(在`common/httpServer/loginService.js`中实现)
+2. 所有ajax请求的后置处理：根据约定规则判断后端返回的json数据，是将错误信息Alert出来，还是返回正确的结果给promise(在`common/httpServer/errorHandle.js`中实现)
+3. 统一的请求根地址配置：使用`config/config.js`中的`baseUrl`作为根地址
+
+##### 使用方法
+- HttpService.get(url, data, option)
+- HttpService.post(url, data, option)
+
+> `option`目前只有`unrestricted`属性(Boolean)，判断是否越过登陆检查、直接发送请求，默认值为`false`
+
+-----------------------
+#### mock
+对通过`$httpProvider`提供的http服务(`$http`、`HttpServer`)提供mock功能。直接拦截请求，返回预定义的数据结果。  
+> 功能实现依赖[mockjs](http://mockjs.com/)，具体语法请通过官网查看
+
+#### 使用方法
+- 开启、关闭mock：
+````
+  // main.js
+  Mock.mockjax(app);
+````
+
+- 配置mock数据
+````
+  // lib/mock/mockData.js
+  Mock.mock(/\/getRemoteSelectList\.htm/, {
+    result: true,
+    'data|10': [{name: '@cname', no: '@integer(1,100)'}]
+  });
+````
+  </markdown>
+</section>

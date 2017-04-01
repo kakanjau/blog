@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.9.2 (454158)"/><meta name="keywords" content="原创, qiaokaka"/><meta name="author" content="乔梁"/><meta name="created" content="2016-10-27 08:21:09 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-10-27 11:37:36 +0000"/><title>Node.js net socket 入门</title></head><body>
+<div>作为前端开发，可能对http请求和协议比较熟悉。但Node.js作为服务器端，不仅要考虑为浏览器终端提供http协议的通信。也要考虑与其他服务端进行通信。在服务器与服务器之间通信的时候，使用TCP/IP协议的socket会更加合适。</div>
+<div><br/></div>
+<div>Node.js自带的`net`模块，提供了在服务器端和客户端的TCP socket功能。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 18px;">服务器端的TCP socket</span></div>
+<div><br/></div>
+<div>一个完备的tcp socket服务端应该具备以下功能：</div>
+<ol>
+<li>监听端口</li>
+<li>相应连接到它的tcp 客户端请求</li>
+<li>可以给客户端的socket发送数据</li>
+<li>其他常规处理：获取服务信息、关闭服务、异常处理等等</li>
+</ol>
+<div><br/></div>
+<div>`net`通过两个函数来完成socket服务器的创建：</div>
+<ul>
+<li>`<span style="color: rgb(51, 51, 51);"><span style="font-family: 'Microsoft Yahei', Lato, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Verdana, Tahoma, sans-serif;">net.createServer([options][, connectionListener])</span></span> `，该方法返回一个socket server的实例：`net.Server`</li>
+<li>`server.listen(options[, callback])`，配置service监听的端口</li>
+</ul>
+<div><br/></div>
+<div>函数`createServer`的参数：`connectionListener`需要传入一个函数，参数是一个socket的实例。当有socket客户端连接到服务器的时候，该函数就会被调用。生成的socket实例被传入函数中，用来进行socket的处理。</div>
+<div><br/></div>
+<div>一个完整的socket server创建代码：</div>
+<div><br/></div>
+<div style="-en-codeblock: true; box-sizing: border-box; padding: 8px; font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; color: rgb(51, 51, 51); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(251, 250, 248); border: 1px solid rgba(0, 0, 0, 0.14902); background-position: initial initial; background-repeat: initial initial;">
+<div>
+<div>const net = require('net');<br/>
+const server = net.createServer((c) =&gt; {<br/>
+  // 'connection' listener<br/>
+  console.log('client connected');<br/>
+  c.on('end', () =&gt; {<br/>
+    console.log('client disconnected');<br/>
+  });<br/>
+  c.write('hello\r\n');<br/>
+  c.pipe(c);<br/>
+});<br/>
+server.on('error', (err) =&gt; {<br/>
+  throw err;<br/>
+});<br/>
+server.listen(8124, () =&gt; {<br/>
+  console.log('server bound');<br/>
+});</div>
+</div>
+</div>
+<div><br/></div>
+<div>对socket链接的处理，也可以在server实例的`connection`事件中实现。</div>
+<div>等价于：</div>
+<div><br/></div>
+<div style="-en-codeblock: true; box-sizing: border-box; padding: 8px; font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; color: rgb(51, 51, 51); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(251, 250, 248); border: 1px solid rgba(0, 0, 0, 0.14902); background-position: initial initial; background-repeat: initial initial;">
+<div>
+<div>const net = require('net');</div>
+</div>
+<div>const server = net.createServer();</div>
+<div><br/></div>
+<div>server.on(‘connection’, (c) =&gt; {</div>
+<div>
+<div>  // 'connection' listener</div>
+<div>  console.log('client connected');</div>
+<div>  c.on('end', () =&gt; {</div>
+<div>    console.log('client disconnected');</div>
+<div>  });</div>
+<div>  c.write('hello\r\n');</div>
+<div>  c.pipe(c);</div>
+</div>
+<div>});</div>
+<div>
+<div>server.on('error', (err) =&gt; {</div>
+<div>  throw err;</div>
+<div>});</div>
+<div>server.listen(8124, () =&gt; {</div>
+<div>  console.log('server bound');</div>
+<div>});</div>
+</div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 18px;">客户端的TCP socket</span></div>
+<div><br/></div>
+<div>客户端的socket主要完成两件事情：</div>
+<ol>
+<li>连接服务器的socket</li>
+<li>与服务器的socket通信</li>
+</ol>
+<div><br/></div>
+<div>`net`通过`net.connect(port[, host][, connectListener])`来连接服务器socket，该函数返回一个socket client实例：`net.Socket`</div>
+<div><br/></div>
+<div>一个完整的socket client创建代码：</div>
+<div><br/></div>
+<div style="-en-codeblock: true; box-sizing: border-box; padding: 8px; font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; color: rgb(51, 51, 51); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(251, 250, 248); border: 1px solid rgba(0, 0, 0, 0.14902); background-position: initial initial; background-repeat: initial initial;">
+<div>const net = require('net');</div>
+<div><br/></div>
+<div>const client = net.connect({port: 8124}, () =&gt; {</div>
+<div>  //'connect' listener<br/>
+  console.log('connected to server!');<br/>
+  client.write('world!\r\n');<br/>
+});<br/>
+client.on('data', (data) =&gt; {<br/>
+  console.log(data.toString());<br/>
+  client.end();<br/>
+});<br/>
+client.on('end', () =&gt; {<br/>
+  console.log('disconnected from server');<br/>
+});</div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div>实例`net.Socket`处理上文代码中出现的`data`事件之外，还有`lookup`、`connect`、`end`、`close`、`error`等事件，以及 `write`、`end`、`destroy`、`setEncoding`、`setKeepAlive`等方法</div>
+</body></html>

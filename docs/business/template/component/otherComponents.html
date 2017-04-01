@@ -1,0 +1,93 @@
+<section class="content">
+  <markdown>
+### markdown
+#### 使用方法
+- 可作为element标签或attribute属性使用
+````
+    <markdown></markdown>
+    <div markdown></div>
+````
+- 可将标签内容作为markdown格式转换
+````
+    <markdown>
+    ### title
+    > blockquote  
+    </markdown>
+````
+- 也可在controler中给变量赋值，将变量内容作为markdown格式转换
+````
+    <markdown content="mdContent"></markdown>
+````
+
+#### 示例
+每个页面的文档均由markdown标签做成。概览页使用的是`controller`中赋值变量的形式，其他页面均是直接写在`markdown`标签内。
+
+----------------------------------
+### dropdown
+#### 使用方法
+`dropdown`的结构必须符合下面的层次，并包含对应的class，最外层注明`sn-dropdown`属性
+````
+  <div class="dropdown" sn-dropdown>
+    <a class="dropdown-toggle"></a>
+    <ul class="dropdown-menu">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+````
+#### 示例
+  </markdown>
+  
+  普通的dropdown
+  <div class="dropdown" sn-dropdown>
+    <a href="" class="btn btn-primary dropdown-toggle">dropdown</a>
+    <ul class="dropdown-menu list-group">
+      <li class="list-group-item">1</li>
+      <li class="list-group-item">2</li>
+      <li class="list-group-item">3</li>
+    </ul>
+  </div>
+  
+  dropdown实现的select
+  <div class="dropdown" sn-dropdown ng-init="dropdownSelect='select'">
+    <a href="" class="btn btn-primary dropdown-toggle">{{dropdownSelect}}</a>
+    <ul class="dropdown-menu list-group">
+      <li class="list-group-item" ng-click="dropdownSelect = 1">1</li>
+      <li class="list-group-item" ng-click="dropdownSelect = 2">2</li>
+      <li class="list-group-item" ng-click="dropdownSelect = 3">3</li>
+    </ul>
+  </div>
+    
+  <markdown>
+-------------------------------
+### preview
+#### 使用方法
+`preview`是一个service服务，在`controller`中依赖`PreviewService`服务。
+````
+  // controller.js
+  $scope.click = evt => {
+    PreviewService.preview(url, imageType);
+    evt.stopPropagation();
+    evt.preventDefault();
+  };
+  // imageType: jpg、jpeg、png、gif、bmp、tiff
+````
+#### 示例
+  </markdown>
+  <a href="" class="btn btn-primary" ng-click="showPreview($event)">查看图片</a>
+  
+  <markdown>
+-------------------------------
+### tooltip
+#### 使用方法
+`tooltip`作为attribute使用，当鼠标hover在tooltip元素上时，tooltip内容会出现，鼠标移出后，tooltip内容消失。
+````
+  <span sn-tooltip="'tooltip说明'">tooltip</span>
+  <span sn-tooltip="<span class='text-danger'>tooltip</span>说明<br>可以加入一些html元素">加入class式样的tooltip</span>
+````
+#### 示例
+  </markdown>
+  <span sn-tooltip="tooltip说明">tooltip</span> <br>
+  <span sn-tooltip="<span class='text-danger'>tooltip</span>说明<br>可以加入一些html元素">加入class式样的tooltip</span>
+</section>

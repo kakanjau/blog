@@ -1,0 +1,51 @@
+<section class="content">
+  <markdown>
+### 模态框
+    模态框包含两个service：`AlertService`和`DialogService`。  
+    `AlertService`提供alert和confirm模态框。`DialogService`提供自定义对话框
+
+### AlertService
+  `AlertService`提供alert模态框和confirm模态框。使用起来比较简单，只需要定义title和内容，并进行后处理即可。
+    
+#### alert  
+    AlertService.alert({
+      title: 'title',  // 弹框标题
+      content: 'content' // 弹框内容，bind-html绑定，可嵌入html标签
+    }).then(() => {  // 回调函数
+    
+    });
+
+#### confirm
+    AlertService.confirm({
+      title: 'title',  // 弹框标题
+      content: 'content' // 弹框内容，bind-html绑定，可嵌入html标签
+    }).then(() => {  // 点击确认时回调函数
+    
+    }, () => { // 点击取消时回调函数
+    
+    });
+
+#### 示例
+  </markdown>
+
+  <a href="" class="btn btn-primary" ng-click="showAlert()">alert模态框</a>
+  <a href="" class="btn btn-primary" ng-click="showConfirm()">confirm模态框</a>
+  
+  <markdown>
+### DialogService
+  `DialogService`提供自定义模态框功能。弹出由用户提供的模板框，框内容由用户自己定义
+  
+#### 使用方法
+    DialogService.modal({
+      key: 'key',  // 弹出框id
+      url: 'url',  // 弹出框内容html的url,
+      accept: () => {}, // accept函数，通过DialogService.accept(key, result)调用
+      refuse: () => {}, // refuse函数，通过DialogService.refuse(key, reason)调用
+    }, { // data数据，该object将直接传递给url指向的template中的controller
+      key: 'key',
+      data: {}
+    });
+#### 示例
+  </markdown>
+  <a href="" class="btn btn-primary" ng-click="showDialog()">dialog模态框</a>
+</section>

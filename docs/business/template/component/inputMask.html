@@ -1,0 +1,28 @@
+<section class="content">
+  <markdown>
+### input mask
+
+    input mask是对<input type="text">的一种增强，使用户可以按照预定的格式进行输入，比如输入yyyy-MM-dd的日期格式，或者000-00000000的电话号码等等。
+
+### 使用方法
+
+    <input input-mask="?{2}:?{2}--a?{1}" input-mask-validate="validateInput" ng-model="model">
+    
+- `input-mask` 接受string类型字符串作为占位符表达式，描述输入框的样式。`?{2}`是占位符，表示这里有2个可输入的位置。
+
+- `input-mask-validate` 接受function作为验证函数。  
+  接受两个参数：`inputValList`(当前输入框的值)和 `mask`(对input-mask解析后的数据结构)。  
+  函数返回true，则输入生效，否则输入无效。
+
+### 实例
+  </markdown>
+  <pre>
+&lt;input style="width:300px" input-mask="?{2}:?{2}--a?{1}" input-mask-validate="validateInput" ng-model="model"/>
+input-mask: '?{2}:?{2}--a?{1}';
+input-mask-validate: 
+{{validateInput.toString()}}
+model: {{model}}
+  </pre>
+  
+  <input style="width:300px" input-mask="?{2}:?{2}--a?{1}" input-mask-validate="validateInput" ng-model="model">
+</section>

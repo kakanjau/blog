@@ -1,0 +1,48 @@
+<section class="content">
+  <markdown>
+### 树
+
+>  树的指令是：sn-tree
+    
+#### 参数
+  提供3个参数进行配置：
+- tree-id  
+  树的唯一标示，如果页面中有多个树，则在监听事件中通过treeId来区分每棵树
+- tree-data  
+  绑定树的数据
+- tree-tpl  
+  树的模板分类，可用的值为：`treeTpl`(普通树)和`checkboxTreeTpl`(checkbox树)
+  
+#### 事件
+- `sn.controls.tree:selectedNodeChanged` 选择节点变更时触发
+- `sn.controls.tree:itemChecked` checkbox被勾选时触发
+- `sn.controls.tree:nodeIconClicked` 图标被点击时触发
+
+#### treeData结构
+    
+    {
+      "name",
+      "checked", (checkbox tree)
+      "children": []
+    }
+  </markdown>
+</section>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="col-xs-6">
+      <div class="box">
+        <div class="box-body">
+          <sn-tree tree-id="tree" tree-data="treeData" tree-tpl="treeTpl"></sn-tree>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="box">
+        <div class="box-body">
+          <sn-tree tree-id="checkboxTree" tree-data="checkboxTreeData" tree-tpl="checkboxTreeTpl"></sn-tree>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

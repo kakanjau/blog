@@ -1,0 +1,55 @@
+<div ng-controller="ArticleCtrl">
+  <header class="navbar navbar-static-top">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand" style="color:#fff">kaka-njau</a>
+    </div>
+    <div class="selector" sn-dropdown>
+      <input type="text" class="form-control dropdown-toggle" ng-model="articleQuery.name" ng-focus="showList=true" ng-blur="showList=false">
+      <ul class="dropdown-menu" style="left: inherit; top: inherit; width: 300px; max-height: 300px; overflow-y: auto;">
+        <li ng-repeat="article in articleList | filter:articleQuery">
+          <a ng-href="#/article/{{article.name}}" target="_blank">{{article.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="social text-right">
+      <a href="https://github.com/kakanjau" class="btn btn-github">
+        <img src="./business/images/github.png" alt="" style="width:30px;">
+      </a>
+      <a href="https://www.zhihu.com/people/qiaokaka" class="btn btn-github">
+        <img src="./business/images/zhihu.png" alt="" style="width:30px;">
+      </a>
+    </div>
+  </header>
+  <div class="portal article">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="text-center">
+          {{article.name}}
+        </h3>
+        <div class="text-center">
+          <h6 class="text-muted">{{article.createDate}}
+          </h6>
+        </div>
+      </div>
+      <div class="box-body" markdown content="{{article.content}}" ng-class="{'show-whole': article.showWhole}" ng-if="article.content">
+      </div>
+    </div>
+    <!-- 多说评论框 start -->
+    <!--<div ng-bind-html="duoshuo"></div>-->
+    <div class="ds-thread" data-thread-key="{{article.name}}" data-title="{{article.name}}" data-url="http://kakanjau.github.io/blog/#/article/{{article.name}}"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kakanjau"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+  </div>
+</div>

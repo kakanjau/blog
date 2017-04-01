@@ -1,0 +1,91 @@
+<div class="skin-blue sidebar-mini sidebar-open" ng-class="{'sidebar-collapse': isSiderCollapse}">
+  <header class="main-header">
+    <a ui-sref="Console.Portal" class="logo">
+      <span class="logo-mini">AAS</span>
+      <span class="logo-lg">Angular AdminLTE Sap</span>
+      <span></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button" ng-click="isSiderCollapse=!isSiderCollapse">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu" sn-dropdown>
+            <a href="javascript:void(0)" class="dropdown-toggle">
+              <img src="business/images/adminlte/avatar.png" class="user-image" alt="User Image" />
+              <span class="hidden-xs">qiaoliang</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="business/images/adminlte/avatar.png" class="img-circle" alt="User Image" />
+                <p>
+                  qiaoliang
+                  <small>{{now | date:'yyyy-MM-dd'}}</small>
+                </p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <!-- <a href="" class="btn btn-default btn-flat">账户中心</a> -->
+                </div>
+                <div class="pull-right">
+                  <a href="logout.htm" ng-click="doLogout()" class="btn btn-default btn-flat">注销</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="main-sidebar">
+    <!-- Inner sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <!-- Optionally, you can add icons to the links -->
+        <li class="treeview" ng-repeat="menu in menus track by $index" ng-click="selectMenu($event, menu)" ng-mouseenter="menu.hover = true;"
+        ng-mouseleave="menu.hover = false;" ng-class="{'active': menu === formData.selectedMenu1 || menu.hover}">
+          <a href="#">
+            <i class="{{menu.clazz || 'fa fa-circle-o'}}"></i>
+            <span>{{menu.name}}</span>
+            <i ng-show="menu.children != null" class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li ng-repeat="menu2 in menu.children track by $index" ng-click="selectMenu($event, menu2)" ng-class="{'active': menu2 === formData.selectedMenu2}"
+            class="treeview">
+              <a href="#">
+                <i class="{{menu2.clazz || 'fa fa-circle-o'}}"></i> {{menu2.name}}
+                <i ng-show="menu2.children != null" class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li ng-repeat="menu3 in menu2.children track by $index | orderBy: 'o'" ng-class="{'active':  menu3 === formData.selectedMenu3}"
+                ng-click="selectMenu($event, menu3)">
+                  <a href="#">
+                    <i class="{{menu3.clazz || 'fa fa-circle-o'}}"></i> {{menu3.name}}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </div>
+  <!-- /.main-sidebar -->
+
+  <div class="content-wrapper" content-wrapper-min-height ui-view>
+  </div>
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright © 2015 苏宁云商.</strong> All rights reserved.
+  </footer>

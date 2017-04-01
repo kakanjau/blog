@@ -1,0 +1,76 @@
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<div><span style="font-family: 'Courier New';">前端在云商城推出nodejs的中间服务层，目的是将云商城的消费者业务进行彻底的前后端分离</span></div>
+<div><span style="font-family: 'Courier New';">最终形成：浏览器 -&gt;  nginx静态服务器 -&gt; node中间层服务器 -&gt; java服务器</span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<ul>
+<li><span style="font-family: 'Courier New';">nginx服务器提高静态资源的加载速度</span></li>
+<li><span style="font-family: 'Courier New';">node中间层服务器，提供模板缓存、对java端服务器数据的预处理、优化提供给前端的接口合理性。同时降低前后端配合的复杂度和沟通成本</span></li>
+<li><span style="font-family: 'Courier New';">java服务器完全抛弃与显示相关的业务处理</span></li>
+</ul>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';">在核心业务不变的情况下，展示内容的调整不再经过云商城后台开发。可以直接由前端部门独立、快速完成。比如本次sws公有云的改造，由运维经过配置后，前端直接通过nodejs拿到配置，进行页面模板和静态页面开发即可，Java端不再需要在此类事项上分心。</span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';">在项目管理上，前后端的项目现在是分开立项，对于一些前端展示性内容的改造（活动页面、首页banner调整、bug修复等等），JAVA项目也不需要进行发布。前端单独发布即可。</span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';">对于前端来说，相当于把一部分后端开发的任务迁移到前端来做。较为理想的前端开发，应该是个人单独负责包括静态模板、静态页面、js以及nodejs端基本逻辑和对java、db数据库调用数据一个完整流程的开发。对前端开发人员的个人能力有比较高的要求。</span>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+</div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><span style="font-size: 18px;">开发架构说明</span></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';">云商城nodejs采用开源的thinkjs框架进行搭建。</span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';">thinkjs（<a href="https://thinkjs.org/">https://thinkjs.org/</a>）是由360公司的奇舞团开发的nodejs开源框架，功能比较完整、中文文档完备，支持多种数据库、session、cache等配置。</span><span style="font-family: 'Courier New';">目前来看基本满足我们对云商城业务的需求。</span></div>
+<div><br/></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><img src="articles/nodejs/thinkjs框架方案.resources/%E5%9B%BE%E7%89%87.jpg"/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<div><span style="font-family: 'Courier New';">优点：</span></div>
+<div><span style="font-family: 'Courier New';"><br/></span></div>
+<ol>
+<li>针对于商城类的站点，为了方便SEO，不适用于html + js + css，通过ajax获取商品信息数据填充页面的开发形式。<br/>
+前端开发可以根据页面实际情况，灵活决定当前页面直接使用静态html还是nodejs端模板进行构建。在本架构下这两者对前端开发几乎没有区别<br/>
+<br/>
+<br/></li>
+<li>模板开发提供了更加强大的功能，且是前端更为熟悉的js语法。可以在此基础上构建起来功能强大和复杂的模板体系（类似于淘宝双11通过70多个模板搭建出上千促销页面）。这是前端更擅长的工作<br/>
+<br/>
+<br/></li>
+<li>前后端均通过js进行开发，极大提高了代码的复用性。比如表单校验<br/>
+<br/>
+<br/></li>
+<li>大量减少java端的接口。由于browser端和node端均由同1人进行开发，沟通效率极低，接口设置更加合理。</li>
+</ol>
+<div><br/></div>
+<div><br/></div>
+<div>缺点：</div>
+<div><br/></div>
+<ol>
+<li>对前端开发的要求较高：静态开发、模板开发、nodejs服务端开发都需要掌握<br/>
+<br/>
+<br/></li>
+<li>与JAVA端的接口调用机制需要慢慢建立（服务器信任机制、数据同步机制、消息互相触发机制）<br/>
+<br/>
+<br/></li>
+<li>运维现有数据的解析，运维数据对模板的影响<br/>
+<br/>
+<br/></li>
+<li>项目在CD发布的改造：本次npm搭建、单svn项目代码分别发布到nginx和nodejs服务器、负载均衡和nodejs集群</li>
+</ol>
+<div><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 18px;">模板加载机制</span></div>
+<div><br/></div>
+<div><img src="articles/nodejs/thinkjs框架方案.resources/922F5558-12D9-44FE-90C6-1303ED4C27EF.png"/></div>
+<div><br/></div>
+<div><img src="articles/nodejs/thinkjs框架方案.resources/043DEC76-C472-4199-8CF9-A1C11DCE7DD5.png"/></div>
+<div><br/></div>
+</div>
