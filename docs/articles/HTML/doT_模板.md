@@ -33,7 +33,7 @@ var resultText = tempFn({foo: 'hello world'});
 // 模板字符串：
 {{
   var a = 1;
-   it.a = a + 1;
+  it.a = a + 1;
 }}
 
 {{= a}} //  a 输出 1
@@ -45,13 +45,15 @@ var resultText = tempFn({foo: 'hello world'});
 ````
 // 模板字符串：
 
+{{ function fn() {return 123\} }}
+
 {{= fn()}} //  fn 输出 123
 
 也可以直接运行匿名函数
 {{
   (function() {
     it.b = 123
-  })();
+  \})();
 }}
 
 {{= it.b}} // it.b通过直接执行的匿名函数赋值为123
