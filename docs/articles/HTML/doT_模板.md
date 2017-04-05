@@ -29,7 +29,7 @@ var resultText = tempFn({foo: 'hello world'});
 {{ }} interpolation 代码片段  
 {{ }} 的用法非常灵活，里面可以直接写js语句。定义的变量可以直接在`{{= }}`中调用。也可以调用通过`tempFn`传入的数据(数据默认放在it对象内)。
 
-```` html
+````
 // 模板字符串：
 {{
   var a = 1;
@@ -42,7 +42,7 @@ var resultText = tempFn({foo: 'hello world'});
 
 也可以定义函数。并在其他的`{{}}` 区块内调用：
 
-```` html
+````
 // 模板字符串：
 {{
  function fn() {
@@ -64,7 +64,7 @@ var resultText = tempFn({foo: 'hello world'});
 
 `{{}}`中的代码块随时可以被打断，插入dom片段等html内容：
 
-```` html
+````
 // 模板字符串：
 {{
   var a = 3;
@@ -78,7 +78,6 @@ var resultText = tempFn({foo: 'hello world'});
 {{
  }
 }}
-
 ````
 
 此外，`{{}}`中也可以直接调用全局对象下的函数或变量。可以以此特点实现比较复杂的功能（通过专用的命名空间给doT模板提供一些过滤器等特色的支持等）。
@@ -154,8 +153,8 @@ var resultText = tempFn({foo: 'hello world'});
 {{~}}
 ````
 
-{{~}} array iteration 循环  
-{{~}}标签必须成对出现，起始标签中写入对数组遍历的变量赋值：`{{~it.array :value:index}}`，并以另外一个`{{~}}`标签为结束。
+`{{~}}` array iteration 循环  
+`{{~}}` 标签必须成对出现，起始标签中写入对数组遍历的变量赋值：`{{~it.array :value:index}}`，并以另外一个`{{~}}`标签为结束。
 
 ### {{# }}
 
