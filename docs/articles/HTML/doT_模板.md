@@ -44,9 +44,7 @@ var resultText = tempFn({foo: 'hello world'});
 
 ````
 // 模板字符串：
-{{
- function fn() {return 123}
-}}
+{{ function fn() {return 123} }}
 
 {{= fn()}} //  fn 输出 123
 
