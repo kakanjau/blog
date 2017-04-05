@@ -59,12 +59,6 @@
     "name": "HTML",
     "isFolder": true,
     "children": [{
-      "name": "doT_模板",
-      "isFolder": false,
-      "fileExt": "md",
-      "createDate": "2016/10/11 10:43",
-      "updateDate": "2016/10/11 10:43"
-    }, {
       "name": "dom启蒙_1",
       "isFolder": false,
       "fileExt": "md",

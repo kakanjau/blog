@@ -13,9 +13,9 @@ export default app => {
           articleMap.list = TreeToListService.treeToList(articleMap.tree);
           return articleMap;
         }else {
-          return $http.get('./articles/article-index.json').success(function(data, status){
+          return $http.get('./articles/article-index.json').then(function(rsp, status){
             articleMap = {};
-            articleMap.tree = data;
+            articleMap.tree = rsp.data;
             articleMap.list = TreeToListService.treeToList(articleMap.tree);
           });
         }
@@ -24,8 +24,8 @@ export default app => {
       service.getArticles = () => articleMap;
       
       service.getArticle = article => {
-        $http.get(getArticlePath(article)).success(data => {
-          article.content = data;
+        $http.get(getArticlePath(article)).then(rsp => {
+          article.content = rsp.data;
         });
       }
       

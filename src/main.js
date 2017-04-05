@@ -1,8 +1,6 @@
 import "../node_modules/admin-lte/bootstrap/css/bootstrap.css";
 import "./business/style/basic-style.css";
 
-import angular from "angular";
-
 import snCommon from "./common/snCommon";
 
 import appConfiguration from './config/config';
